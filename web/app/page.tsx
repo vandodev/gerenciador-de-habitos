@@ -1,3 +1,4 @@
+import DayState from "@/components/DayState";
 import { Maiden_Orange } from "next/font/google";
 import Image from "next/image";
 import { json } from "stream/consumers";
@@ -41,9 +42,11 @@ export default function Home() {
             </div>
 
             <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
-              {/* {['Dom', 'Seg','Terc', 'Qua', 'Qui', 'Sex', 'Sab'].map(day => ( */}
               {weekDays.map(day => (
-                <span key={day} className="font-sans text-xs text-white text-center">{day}</span>
+                <div key={day} className="flex flex-col last:font-bold">
+                  <span className="font-sans text-xs text-white text-center">{day}</span>
+                  <DayState day={true} />
+                </div>
               ))}
             </section>
           </div>
