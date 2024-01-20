@@ -2,6 +2,7 @@ import { Maiden_Orange } from "next/font/google";
 import Image from "next/image";
 import { json } from "stream/consumers";
 
+
 export default function Home() {
   const habits = {
     'beber água':{
@@ -27,9 +28,15 @@ export default function Home() {
       {habits !== null &&
       Object.entries(habits).map(
         ([habit, habitStreak]) => (
-          <p key={habit} className="text-white">
-            {habit} - {JSON.stringify(habitStreak)}
-          </p>
+          <div key={habit}>
+            <div className="flex justify-between items-center">
+            <span className="text-xl font-light text-white font-sans">
+                {habit}
+            </span>
+
+              <button><Image src="/images/trash.svg" width={20} height={20} alt="icone de lixeira para apagar habito"/></button>
+            </div>
+          </div>
         ))
       }
    </main>
