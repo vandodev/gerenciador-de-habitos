@@ -2,6 +2,7 @@ import DayState from "@/components/DayState";
 import { Maiden_Orange } from "next/font/google";
 import Image from "next/image";
 import { json } from "stream/consumers";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -58,6 +59,13 @@ export default function Home() {
           </div>
         ))
       }
+
+<     Link
+        href="novo-habito"
+        className="fixed text-center bottom-10 w-2/3 left-1/2 -translate-x-1/2 text-neutral-900 bg-[#45EDAD] font-display font-regular text-2xl p-2 rounded-md"
+      >
+        Novo hábito
+      </Link>
    </main>
   );
 }
