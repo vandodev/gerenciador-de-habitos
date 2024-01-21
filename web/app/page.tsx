@@ -45,7 +45,7 @@ export default function Home() {
               {weekDays.map(day => (
                 <div key={day} className="flex flex-col last:font-bold">
                   <span className="font-sans text-xs text-white text-center">{day}</span>
-                  <DayState day={true} />
+                  <DayState day={false} />
                 </div>
               ))}
             </section>
