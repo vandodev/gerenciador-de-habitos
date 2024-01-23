@@ -49,15 +49,16 @@ export default async function Home() {
 
               <button><Image src="/images/trash.svg" width={20} height={20} alt="icone de lixeira para apagar habito"/></button>
             </div>
-
-            <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
-              {sortedWeekDays.map((day, index) => (
-                <div key={day} className="flex flex-col last:font-bold">
-                  <span className="font-sans text-xs text-white text-center">{day}</span>
-                  <DayState day={habitStreak[last7Days[index]]} />
-                </div>
-              ))}
-            </section>
+            <Link href={`habito/${habit}`}>
+              <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
+                {sortedWeekDays.map((day, index) => (
+                  <div key={day} className="flex flex-col last:font-bold">
+                    <span className="font-sans text-xs text-white text-center">{day}</span>
+                    <DayState day={habitStreak[last7Days[index]]} />
+                  </div>
+                ))}
+              </section>
+            </Link>
           </div>
         ))
       }
