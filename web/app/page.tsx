@@ -1,23 +1,15 @@
 import DayState from "@/components/DayState";
+import { kv } from "@vercel/kv";
 import { Maiden_Orange } from "next/font/google";
 import Image from "next/image";
 import { json } from "stream/consumers";
 import Link from "next/link";
 
 
-export default function Home() {
-  const habits = {
-    'beber água':{
-      '2024-19-01':true,
-      '2024-20-01':false,
-      '2024-21-01':true,
-    },
-    'Estudar programação':{
-      '2024-19-01':true,
-      '2024-20-01':true,
-      '2024-21-01':true,
-    },
-  }
+export default async function Home() {
+  const habits = await kv.hgetall("habits");
+
+
   const today = new Date();//dia atual
   // const todayWeekDay = 3;
   const todayWeekDay = today.getDay();// indice de 0 1 6
