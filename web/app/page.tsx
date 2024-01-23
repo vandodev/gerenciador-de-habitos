@@ -5,11 +5,12 @@ import Image from "next/image";
 import { json } from "stream/consumers";
 import Link from "next/link";
 
+export type Habits = {
+  [habit: string]: Record<string, boolean>;
+} | null;
 
 export default async function Home() {
-  const habits = await kv.hgetall("habits");
-
-
+  const habits: Habits = await kv.hgetall("habits");
   const today = new Date();//dia atual
   // const todayWeekDay = 3;
   const todayWeekDay = today.getDay();// indice de 0 1 6
@@ -18,6 +19,15 @@ export default async function Home() {
   const sortedWeekDays = weekDays
     .slice(todayWeekDay + 1)
     .concat(weekDays.slice(0, todayWeekDay + 1));
+
+  const last7Days = weekDays
+    .map((_, index) => {
+      const date = new Date();
+      date.setDate(date.getDate() - index);
+
+      return date.toISOString().slice(0, 10);
+  }).reverse();
+
 
   return (
     <main className="container relative flex flex-col gap-8 px-4 pt-16">
@@ -41,10 +51,10 @@ export default async function Home() {
             </div>
 
             <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
-              {sortedWeekDays.map(day => (
+              {sortedWeekDays.map((day, index) => (
                 <div key={day} className="flex flex-col last:font-bold">
                   <span className="font-sans text-xs text-white text-center">{day}</span>
-                  <DayState day={false} />
+                  <DayState day={habitStreak[last7Days[index]]} />
                 </div>
               ))}
             </section>
