@@ -5,13 +5,16 @@ import ArrowIcon from "@/components/ArrowIcon";
 /* https://stackoverflow.com/questions/13146418/find-all-the-days-in-a-month-with-date-object */
 function getDaysInMonth(month: number, year: number) {
   const date = new Date(year, month, 1);
-  const days = [];
+  const firstDayWeekDay = date.getDay();
+  const numberOfEmptyDays = Array(firstDayWeekDay).fill(null);
+  const days = [...numberOfEmptyDays];
+  // const days = [null, null, null, Date, Date];
   while (date.getMonth() === month) {
     days.push(new Date(date));
     date.setDate(date.getDate() + 1);
   }
   return days;
-}
+} 
 
 const currentDate = new Date();
 const currentDay = currentDate.getDate();
