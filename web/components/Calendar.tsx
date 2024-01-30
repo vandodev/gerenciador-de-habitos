@@ -1,4 +1,6 @@
+"use client";
 import ArrowIcon from "@/components/ArrowIcon";
+import { useEffect, useState } from "react";
 
 /* https://stackoverflow.com/questions/13146418/find-all-the-days-in-a-month-with-date-object */
 function getDaysInMonth(month: number, year: number) {
@@ -20,18 +22,55 @@ const currentMonth = currentDate.getMonth();
 const currentYear = currentDate.getFullYear();
 
 function Calendar(){
-    const daysInMonth =  getDaysInMonth(currentMonth, currentYear);
     const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
-    console.log(daysInMonth)
-    return(     
+    const [month, setMonth] = useState(currentMonth);
+    const [year, setYear] = useState(currentYear);    
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
+    const [daysInMonth, setDaysInMonth] = useState(
+        getDaysInMonth(currentMonth, currentYear)
+    );
+
+    useEffect(() => {
+        setDaysInMonth(getDaysInMonth(month, year));
+        setSelectedDate(new Date(year, month, 1));
+      }, [month, year]);
+
+    function goToPreviousMonth() {
+        if (month === 0) {
+          setYear(year - 1);
+          setMonth(11);
+        } else {
+          setMonth(month - 1);
+        }
+      }
+
+      function goToNextMonth() {
+        if (month === 11) {
+          setYear(year + 1);
+          setMonth(0);
+        } else {
+          setMonth(month + 1);
+        }
+      }
+
+      function getFullDateString() {
+        const monthName = `${selectedDate.toLocaleString("pt-BR", {
+          month: "long",
+        })}`;
+    
+        const upperCaseMonthName = monthName[0].toUpperCase() + monthName.slice(1);
+        return `${upperCaseMonthName} de ${selectedDate.getFullYear()}`;
+      }
+      
+    return(   
         <section className="w-full my-2 rounded-md bg-neutral-800">
           <div className="flex justify-between mx-2 my-4 font-sans text-neutral-400">
-            <button >
+            <button onClick={goToPreviousMonth}>
               <ArrowIcon className="stroke-neutral-400" width={12} height={12} />
             </button>
-            <span>Janeiro de 2024</span>
-            <button>
+            <span>{getFullDateString()}</span>
+            <button onClick={goToNextMonth}>
               <ArrowIcon width={12} height={12} className="rotate-180 stroke-neutral-400"/>
             </button>
           </div>
