@@ -1,6 +1,8 @@
-async function Habit(){
+
+async function Habit({ params: { habit } }: { params: { habit: string } }) {
+    const decodedHabit = decodeURI(habit);
     return(
-        <h1 className="text-white">Olá mundo</h1>
+        <h1 className="text-white">{decodedHabit}</h1>
     )
 }
 
