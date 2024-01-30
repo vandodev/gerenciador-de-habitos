@@ -5,7 +5,10 @@ import Calendar from "@/components/Calendar";
 
 async function Habit({ params: { habit } }: { params: { habit: string } }) {
     const decodedHabit = decodeURI(habit);
-    const habitStreak = await kv.hget("habits", decodedHabit);
+    const habitStreak: Record<string, boolean> | null = await kv.hget(
+      "habits",
+      decodedHabit
+    );
    
     return(
       <main className="container relative flex flex-col gap-8 px-12 pt-16">
@@ -21,7 +24,7 @@ async function Habit({ params: { habit } }: { params: { habit: string } }) {
           Voltar
         </Link>
 
-        <Calendar />
+        <Calendar habit={decodedHabit} habitStreak={habitStreak} />
    
       </main>
     )
