@@ -5,7 +5,8 @@ import ArrowIcon from "@/components/ArrowIcon";
 async function Habit({ params: { habit } }: { params: { habit: string } }) {
     const decodedHabit = decodeURI(habit);
     const habitStreak = await kv.hget("habits", decodedHabit);
-    
+    const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+
     return(
       <main className="container relative flex flex-col gap-8 px-12 pt-16">
         <h1 className="text-2xl font-light text-center text-white font-display">
@@ -29,6 +30,17 @@ async function Habit({ params: { habit } }: { params: { habit: string } }) {
             <button>
               <ArrowIcon width={12} height={12} className="rotate-180 stroke-neutral-400"/>
             </button>
+          </div>
+
+          <div className="grid w-full grid-cols-7 mt-2">
+          {weekDays.map((day) => (
+            <div key={day} className="flex flex-col items-center p-2">
+              <span className="font-sans text-xs font-light text-neutral-200">
+                {day}
+              </span>
+            </div>
+           ))}
+
           </div>
         </section>
 
