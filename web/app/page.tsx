@@ -4,6 +4,7 @@ import { Maiden_Orange } from "next/font/google";
 import Image from "next/image";
 import { json } from "stream/consumers";
 import Link from "next/link";
+import DeleteButton from "@/components/DeleteButton";
 
 export type Habits = {
   [habit: string]: Record<string, boolean>;
@@ -47,7 +48,8 @@ export default async function Home() {
                   {habit}
               </span>
 
-              <button><Image src="/images/trash.svg" width={20} height={20} alt="icone de lixeira para apagar habito"/></button>
+              <DeleteButton habit={habit} />
+
             </div>
             <Link href={`habito/${habit}`}>
               <section className="grid grid-cols-7 bg-neutral-800 rounded-md p-2">
