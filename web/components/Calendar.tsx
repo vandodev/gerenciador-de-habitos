@@ -2,6 +2,7 @@
 import ArrowIcon from "@/components/ArrowIcon";
 import { useEffect, useState } from "react";
 import DayState from "@/components/DayState";
+import { toggleHabit } from "@/app/actions";
 
 /* https://stackoverflow.com/questions/13146418/find-all-the-days-in-a-month-with-date-object */
 function getDaysInMonth(month: number, year: number) {
@@ -18,7 +19,6 @@ function getDaysInMonth(month: number, year: number) {
   } 
 
 const currentDate = new Date();
-const currentDay = currentDate.getDate();
 const currentMonth = currentDate.getMonth();
 const currentYear = currentDate.getFullYear();
 
@@ -102,6 +102,14 @@ function Calendar({
                 <div
                   key={index}
                   className="flex flex-col items-center p-2"
+                  onClick={() =>
+                    toggleHabit({
+                      habit,
+                      habitStreak,
+                      date: getDayString(day),
+                      done: habitStreak ? habitStreak[getDayString(day)] : true,
+                    })
+                  }
                   >
                   <span className="font-sans text-xs font-light text-neutral-400 text-center">
                     {day?.getDate()}
