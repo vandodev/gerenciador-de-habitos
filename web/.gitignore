@@ -38,3 +38,5 @@ next-env.d.ts
 .vercel
 
 web/package-lock.json
+
+.vercel
